@@ -70,6 +70,10 @@ class ImageConcatWithNoiseAugmentation(AbstractLowScaleModel):
         self.max_noise_level = max_noise_level
 
     def forward(self, x, noise_level=None):
+        '''
+        noise_level: 用于生成。 0~max_noise_level. 此代码库中用的是max_noise_level=350 (0.35)
+            noise_level 在本代码库中的一个推荐值是100 （0.1）
+        '''
         if noise_level is None:
             noise_level = torch.randint(0, self.max_noise_level, (x.shape[0],), device=x.device).long()
         else:
